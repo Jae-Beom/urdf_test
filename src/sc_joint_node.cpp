@@ -73,9 +73,10 @@ int main(int argc, char** argv)
     }
     
     // open .csv file
-    chdir("catkin_ws/src");
-    chdir("urdf_test/src");
+    chdir("catkin_ws/");
+    chdir("src/urdf_test/src");
     getcwd(current_workingDir, 512);
+    ROS_INFO("%s",current_workingDir);
     sprintf(path_name,"%s/sc_20sec_data.csv", current_workingDir);
     string file_path(path_name);
     FILE* stream = fopen(path_name, "r");
