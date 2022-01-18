@@ -1,0 +1,10 @@
+<launch>
+  <arg name="gui" default="True" />
+  <arg name="rvizconfig" default="$(find urdf_test)/rviz/rviz_pen.rviz" />
+  
+  <param name="robot_description" command="cat $(find urdf_test)/urdf/pendulum.urdf" />
+  
+  <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen" if="$(arg gui)" />
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>

@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<robot name="SliderCrank">
+
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4235294117647059 0.0392156862745098 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 0.5"/>
+  </material>
+
+  <link name="world"/>
+  
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="SC_base"/>
+    <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 1.0"/>
+  </joint>
+
+  <link name="SC_base">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sc_description/meshes/SC_Base.stl"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.001666666666666667" ixy="0.0" ixz="0.0" iyy="0.001666666666666667" iyz="0.0" izz="0.001666666666666667"/>
+    </inertial>
+  </link>
+
+
+  <joint name="REV01_Base_to_Lnik1" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="SC_base"/>
+    <child link="SC_link1"/>
+    <origin rpy="0 0 -0.5235987755982988" xyz="0 0 0.075"/>
+  </joint>
+
+
+  <!-- link1 -->
+  <link name="SC_link1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.25000000000000006 0"/>
+      <geometry>
+        <box size="0.05 0.5500000000000002 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sc_description/meshes/SC_link1.stl"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0.25000000000000006 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.025416666666666678" ixy="0.0" ixz="0.0" iyy="0.00041666666666666675" iyz="0.0" izz="0.025416666666666678"/>
+    </inertial>
+  </link>
+  
+  
+  <joint name="REV02_Lnik1_to_Lnik2" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="SC_link1"/>
+    <child link="SC_link2"/>
+    <origin rpy="0 0 -1.5707963267948966" xyz="0 0.5000000000000001 0.05"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  
+  
+  <!-- link2 -->
+  <link name="SC_link2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.4330127018922193 0"/>
+      <geometry>
+        <box size="0.05 0.9160254037844386 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+                <mesh filename="package://sc_description/meshes/SC_link2.stl"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0.4330127018922193 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.07013354503153699" ixy="0.0" ixz="0.0" iyy="0.00041666666666666675" iyz="0.0" izz="0.07013354503153699"/>
+    </inertial>
+  </link>
+  
+  <!-- Err: URDF isn't support closed loop -->
+  <joint name="REV03_Lnik2_to_Piston" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="SC_link2"/>
+    <child link="SC_Piston"/>
+    <origin rpy="0 0 2.0943951023931953" xyz="0 0.8660254037844386 -0.065"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <!-- Err: URDF isn't support closed loop -->
+  
+  <!-- piston -->
+  <link name="SC_Piston">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.08 0.08 0.08"/>
+      </geometry>
+    </collision>
+    <visual>
+      <geometry>
+        <mesh filename="package://sc_description/meshes/SC_Pis.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.0010666666666666672" ixy="0.0" ixz="0.0" iyy="0.0010666666666666672" iyz="0.0" izz="0.0010666666666666672"/>
+    </inertial>
+  </link>
+  
+  
+  <joint name="TRANS01_Base_to_Piston" type="prismatic">
+    <axis xyz="1 0 0"/>
+    <parent link="SC_base"/>
+    <child link="SC_Piston"/>
+    <limit effort="2000.0" lower="-2" upper="2" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="1 0 0.06"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  
+</robot>

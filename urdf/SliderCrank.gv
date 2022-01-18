@@ -1,0 +1,20 @@
+digraph G {
+node [shape=box];
+"world" [label="world"];
+"SC_base" [label="SC_base"];
+"SC_link1" [label="SC_link1"];
+"SC_link2" [label="SC_link2"];
+"SC_Piston" [label="SC_Piston"];
+"SC_Piston" [label="SC_Piston"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"world" -> "fixed" [label="xyz: 0 0 1 \nrpy: 1.5708 -0 1.5708"]
+"fixed" -> "SC_base"
+"SC_base" -> "REV01_Base_to_Lnik1" [label="xyz: 0 0 0.075 \nrpy: 0 0 -0.523599"]
+"REV01_Base_to_Lnik1" -> "SC_link1"
+"SC_link1" -> "REV02_Lnik1_to_Lnik2" [label="xyz: 0 0.5 0.05 \nrpy: 0 0 -1.5708"]
+"REV02_Lnik1_to_Lnik2" -> "SC_link2"
+"SC_link2" -> "TRANS01_Base_to_Piston" [label="xyz: 1 0 0.06 \nrpy: 0 -0 0"]
+"TRANS01_Base_to_Piston" -> "SC_Piston"
+"SC_base" -> "TRANS01_Base_to_Piston" [label="xyz: 1 0 0.06 \nrpy: 0 -0 0"]
+"TRANS01_Base_to_Piston" -> "SC_Piston"
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="Pendulum">
+
+  <link name="base"/>
+
+  <joint name="fixed" type="fixed">
+          <parent link="base"/>
+          <child link="Pen_base"/>
+  </joint>
+
+  <link name="Pen_base">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+        <!-- <mesh filename="package://urdf_test/meshes/Pen_base.stl"/> -->
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_pen_rev1" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="Pen_base"/>
+    <child link="Pen_link"/>
+    <origin rpy="0 1.57 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="Pen_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length=".5"/>
+        <!-- <mesh filename="package://urdf_test/meshes/Pen_link.stl"/> -->
+      </geometry>
+      <origin rpy="0 1.57 0" xyz="0.25 0 0"/>
+      <!-- use stl file -->
+      <!-- <origin rpy="0 1.57 0" xyz="0 0 0"/>  -->
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+</robot>
